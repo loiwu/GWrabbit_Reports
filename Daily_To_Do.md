@@ -16,4 +16,4 @@
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
-|   √   |January 20    |~~iOS - Core Data |NSManagedObject Subclasses~~|
+|   √   |January 20    |iOS - Core Data |~~NSManagedObject Subclasses~~|
