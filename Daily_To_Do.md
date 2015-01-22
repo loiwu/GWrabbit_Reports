@@ -13,6 +13,7 @@
 |   √   |January 19    |Design          |~~Sketch:<br/> 1 - The Interface:(1)Canvas(2)Inspector(3)Layer List(4)Toolbar <br/> 2 - Layers:(1)Adding Layers(2)Selecting Layers(3)Moving Layers(4)Resizing Layers(5)Editing Layers~~|
 |   ?   |January 20    |Design          |Website UI for GWrabbit|
 |   ?   |January 21    |Rails           |~~Ruby on Rails is onboard~~|
+|   ?   |January 22    |Rails           |~~Task A: Creating the Application Task B: Validation and Unit Testing~~|
 
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
