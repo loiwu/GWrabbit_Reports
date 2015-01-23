@@ -22,13 +22,22 @@ Request Contents
 An HTTP request consists of three parts: the request line, the request headers, and the request body.
 
 Common Request Methods and Their Uses
-| METHOD |     STANDARD USES     |
-|:--------|:------------|
-|     GET    | Retrieves a piece of content, or entity in HTTP terminology, from the server. GET requests usually don’t contain a request body, but it is allowed. Some network caching appliances will cache only GET responses. GET requests usually do not cause data changes on the server.    |
-|     POST    |Updates an entity with data provided by the client. A POST request usually has information in the body of the request that is used by the application server. POST requests are considered to be non-idempotent, meaning that if more than one request is processed, the result is different than if only one request is processed.   |
-|     HEAD    |Retrieves metadata about a response without retrieving the entire contents of the response. This method is usually used to check a server for recent content changes without having to retrieve the full content.   |
-|     PUT    |Adds an entity with data provided by the client. A PUT request usually has information in the body of the request that is used by the application server to create the new entity. Usually, PUT requests are considered to be idem- potent, meaning that the request can be repeatedly applied with the same results.    |
-|     DELETE    |Removes an entity based on contents of the URI or request body provided by the client. DELETE requests are most frequently used in REST service interfaces.    |
+
+|     GET    | 
+Retrieves a piece of content, or entity in HTTP terminology, from the server. GET requests usually don’t contain a request body, but it is allowed. Some network caching appliances will cache only GET responses. GET requests usually do not cause data changes on the server. 
+
+|     POST    |
+Updates an entity with data provided by the client. A POST request usually has information in the body of the request that is used by the application server. POST requests are considered to be non-idempotent, meaning that if more than one request is processed, the result is different than if only one request is processed.
+
+|     HEAD    |
+Retrieves metadata about a response without retrieving the entire contents of the response. This method is usually used to check a server for recent content changes without having to retrieve the full content.
+
+|     PUT    |
+Adds an entity with data provided by the client. A PUT request usually has information in the body of the request that is used by the application server to create the new entity. Usually, PUT requests are considered to be idem- potent, meaning that the request can be repeatedly applied with the same results.
+
+|     DELETE    |
+Removes an entity based on contents of the URI or request body provided by the client. DELETE requests are most frequently used in REST service interfaces.
+
 
 The URI uniquely identifies the target of the request.
 The URI may also contain query parameters, which must not contain a space or carriage return character.
@@ -52,4 +61,21 @@ Synchronous — The thread on which the initiating code runs blocks until the en
 Queued asynchronous — The initiating code creates a request and places it on a queue to be performed on a background thread. This method is slightly more difficult to implement and removes a significant limitation of the pure synchronous technique.
 Asynchronous — The initiating code starts a request that runs on the initiating thread but calls delegate methods as the requests proceeds. This technique is the most complicated to implement but provides the most flexibility in handling responses.
 
+Best Practices for Synchronous Requests
+·Only use them on background threads, never on the main thread unless you are completely sure that the request goes to a local file resource.
+·Only use them when you know that the data returned will never exceed the memory available to the app. Remember that the entire body of the response is returned in-memory to your code. If the response is large, it may cause out-of-memory conditions in your app. Also remember that your code may duplicate the memory footprint of the returned data when it parses it into a usable format.
+·Always validate the error and HTTP response status code returned from the call before processing the returned data.
+·Don’t use synchronous requests if the source URL may require authentication, as the synchronous framework does not support responding to authentication requests. The only exception is for BASIC authentication, for which credentials can be passed in the URL or request headers. Performing authentication this way increases the coupling between your app and the server, thereby increasing the fragility of the overall application. It can also pass the credentials in clear text unless the request uses the HTTPS protocol. See Chapter 6, “Securing Network Traffic,” for information on responding to authentication requests.
+·Don’t use synchronous requests if you need to provide a progress indicator to the users because the request is atomic and provides no intermediate indications of progress.
+·Don’t use synchronous requests if you need to parse the response data incrementally via a stream parser.
+·Don’t use synchronous requests if you may need to cancel the request before it is complete.
+
+Best Practices for Queued Asynchronous Requests
+·Only use them when you know that the data returned will never exceed the memory available to the app. The entire body of the response is returned in-memory to your code. If the response is large, it may cause out-of-memory conditions in your app. Remember that your code may duplicate the memory footprint of the returned data when it parses it into a usable format.
+·Use a single NSOperationQueue for all your operations and control the maximum number of current operations based on the capacity of your server and the expected network conditions.
+·Always validate the error and HTTP response status code returned from the call before processing the returned data.
+·Don’t use them if the source URL may require authentication because this functionality does not support responding to authentication requests. You can put BASIC authentication credentials in the URL supplied to the request if the service requires that type of authentication.
+·Don’t use queued asynchronous requests if you need to provide a progress indicator to the users because the request is atomic and provides no intermediate indications of progress.
+·Don’t use queued asynchronous requests if you need to parse the response data incremen- tally via a stream parser.
+·Don’t use queued asynchronous requests if you may need to cancel the request before it is complete.
 

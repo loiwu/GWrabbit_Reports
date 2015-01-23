@@ -19,3 +19,4 @@
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
 |   √   |January 20    |iOS - Core Data |~~NSManagedObject Subclasses~~|
+|   ?   |January 23    |iOS - Network   |Synchronous Requests<br/> Queued Asynchronous Requests|
