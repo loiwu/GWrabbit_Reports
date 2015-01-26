@@ -6,6 +6,7 @@
 |:-----:|:------------:|:---------------| :-----|
 |   √   |January 19    |iBAEN - Search  |~~All Classified Ads - narrow the search to the category users have selected within each category~~|
 |   √   |January 20    |iBAEN - Search  |~~Business Categories - narrow the search to the category users have selected within each category~~|
+|   √   |January 26    |iBAEN - Release |~~Release Build 0.2.14350, http://fir.im/baen~~|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
@@ -14,9 +15,11 @@
 |   ?   |January 20    |Design          |Website UI for GWrabbit|
 |   ?   |January 21    |Rails           |~~Ruby on Rails is onboard~~|
 |   ?   |January 22    |Rails           |~~Task A: Creating the Application Task B: Validation and Unit Testing~~|
+|   ?   |January 26    |Rails           |~~Task C: Catalog Display ~~|
 
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
 |   √   |January 20    |iOS - Core Data |~~NSManagedObject Subclasses~~|
 |   ?   |January 23    |iOS - Network   |Synchronous Requests<br/> Queued Asynchronous Requests|
+|   √   |January 26    |iOS - Core Data   |~~The Core Data Stack: Dog Walk~~|
