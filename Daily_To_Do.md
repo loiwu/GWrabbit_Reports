@@ -13,13 +13,16 @@
 |:-----:|:------------:|:---------------| :-----|
 |   √   |January 19    |Design          |~~Sketch:<br/> 1 - The Interface:(1)Canvas(2)Inspector(3)Layer List(4)Toolbar <br/> 2 - Layers:(1)Adding Layers(2)Selecting Layers(3)Moving Layers(4)Resizing Layers(5)Editing Layers~~|
 |   ?   |January 20    |Design          |Website UI for GWrabbit|
-|   ?   |January 21    |Rails           |~~Ruby on Rails is onboard~~|
-|   ?   |January 22    |Rails           |~~Task A: Creating the Application Task B: Validation and Unit Testing~~|
-|   ?   |January 26    |Rails           |~~Task C: Catalog Display ~~|
+|   √   |January 21    |Rails           |~~Ruby on Rails is onboard~~|
+|   √   |January 22    |Rails           |~~Task A: Creating the Application Task B: Validation and Unit Testing~~|
+|   √   |January 26    |Rails           |~~Task C: Catalog Display~~|
+|   √   |January 27    |Rails           |~~Task D: Cart Creation~~|
+|   √   |January 27    |Rails           |~~Task E: A Smarter Cart~~|
 
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
 |   √   |January 20    |iOS - Core Data |~~NSManagedObject Subclasses~~|
 |   ?   |January 23    |iOS - Network   |Synchronous Requests<br/> Queued Asynchronous Requests|
-|   √   |January 26    |iOS - Core Data   |~~The Core Data Stack: Dog Walk~~|
+|   √   |January 26    |iOS - Core Data |~~The Core Data Stack: Dog Walk~~|
+|   √   |January 27    |iOS - Core Data |~~Intermediate Fetching: Bubble Tea~~|
