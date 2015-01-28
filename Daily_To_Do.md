@@ -18,6 +18,7 @@
 |   √   |January 26    |Rails           |~~Task C: Catalog Display~~|
 |   √   |January 27    |Rails           |~~Task D: Cart Creation~~|
 |   √   |January 27    |Rails           |~~Task E: A Smarter Cart~~|
+|   √   |January 28    |Rails           |~~Task F: Add a Dash of Ajax~~|
 
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
@@ -26,3 +27,5 @@
 |   ?   |January 23    |iOS - Network   |Synchronous Requests<br/> Queued Asynchronous Requests|
 |   √   |January 26    |iOS - Core Data |~~The Core Data Stack: Dog Walk~~|
 |   √   |January 27    |iOS - Core Data |~~Intermediate Fetching: Bubble Tea~~|
+|   √   |January 28    |iOS - Core Data |~~NSFetchedResultsController~~|
+|   ?   |January 28    |iOS - Core Data |Versioning and Migration|
