@@ -8,6 +8,7 @@
 |   √   |January 20    |iBAEN - Search  |~~Business Categories - narrow the search to the category users have selected within each category~~|
 |   √   |January 26    |iBAEN - Release |~~Release Build 0.2.14350, http://fir.im/baen~~|
 |   ?   |February 3    |iBAEN - Bug Fix | bugs|
+|   ?   |February 4    |iBAEN - Bug Fix | YouTube Player|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
