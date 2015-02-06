@@ -9,7 +9,7 @@
 |   √   |January 26    |iBAEN - Release |~~Release Build 0.2.14350, http://fir.im/baen~~|
 |   √   |February 3    |iBAEN - Bug Fix |~~bugs~~|
 |   √   |February 4    |iBAEN - Bug Fix |~~YouTube Player~~|
-|   √   |February 4    |iBAEN - Releas  |~~Release Build 0.2.14730, http://fir.im/baen~~|
+|   √   |February 5    |iBAEN - Releas  |~~Release Build 0.2.14730, http://fir.im/baen~~|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
@@ -23,6 +23,7 @@
 |   √   |January 27    |Rails           |~~Task E: A Smarter Cart~~|
 |   √   |January 28    |Rails           |~~Task F: Add a Dash of Ajax~~|
 
+
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
@@ -32,3 +33,4 @@
 |   √   |January 27    |iOS - Core Data |~~Intermediate Fetching: Bubble Tea~~|
 |   √   |January 28    |iOS - Core Data |~~NSFetchedResultsController~~|
 |   ?   |January 28    |iOS - Core Data |Versioning and Migration|
+|   ?   |February 6    |iOS - Basic     | Basic |
