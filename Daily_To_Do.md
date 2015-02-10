@@ -10,6 +10,7 @@
 |   √   |February 3    |iBAEN - Bug Fix |~~bugs~~|
 |   √   |February 4    |iBAEN - Bug Fix |~~YouTube Player~~|
 |   √   |February 5    |iBAEN - Releas  |~~Release Build 0.2.14730, http://fir.im/baen~~|
+|   √   |February 10   |iBAEN - Releas  |~~Release Build 0.2.14866, http://fir.im/ibaen~~|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
