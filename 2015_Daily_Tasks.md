@@ -5,12 +5,13 @@
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
 |   √   |February 26   |iBAEN - Search  |ID Search|
-|   ?   |February 27   |iBAEN - New Feature|Google Analytics for iOS|
+|   √   |February 27   |iBAEN - Google Analytics|Screen Tracking|
+|   √   |February 27   |iBAEN - Release|Ver 1.0 Pending Developer Release|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
-|   ?   |February 26   |TBD             |TBD|
+|   ?   |February 27   |SuperHorse      |TBD|
 
 ## Knowledge for myself
 | DONE? |     Date     |      Title     |  Note |
