@@ -6,7 +6,12 @@
 |:-----:|:------------:|:---------------| :-----|
 |   √   |February 26   |iBAEN - Search  |ID Search|
 |   √   |February 27   |iBAEN - Google Analytics|Screen Tracking|
-|   √   |February 27   |iBAEN - Release|Ver 1.0 Pending Developer Release|
+|   √   |February 27   |iBAEN - Release|Ver 1.0 Release|
+
+## MASDK for Justek LLC 
+| DONE? |     Date     |      Title     |  Note |
+|:-----:|:------------:|:---------------| :-----|
+|   ?   |March 2       |MASDK           |?|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
