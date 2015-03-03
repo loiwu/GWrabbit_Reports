@@ -11,7 +11,8 @@
 ## MASDK for Justek LLC 
 | DONE? |     Date     |      Title     |  Note |
 |:-----:|:------------:|:---------------| :-----|
-|   ?   |March 2       |MASDK           |?|
+|   √   |March 2       |MASDK           |Starter|
+|   √   |March 3       |MASDK           |Cisco Banking Demo|
 
 ## Studio for GWrabbit
 | DONE? |     Date     |      Title     |  Note |
