@@ -19,6 +19,11 @@
 |   ?   |February 27   |SuperHorse      |TBD|
 
 ## Knowledge for myself
-| DONE? |     Date     |      Title     |  Note |
-|:-----:|:------------:|:---------------| :-----|
-|   ?   |February 26   |TBD             |TBD|
+| DONE? |     Date     |60 Second Science|  News |
+|:-----:|:------------:|:----------------|:------|
+|   ?   | March 3      |√                |×      |
+
+| DONE? |     Date     |The Advanced O-O Tec|
+|:-----:|:------------:|:-------------------|
+|   ?   | March 3      |×                   |
+
