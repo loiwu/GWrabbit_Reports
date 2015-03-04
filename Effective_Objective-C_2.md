@@ -135,3 +135,135 @@ enum EOCConnectionStateConnectionState {
 	EOCConnectionStateConnecting,
 	EOCConnectionStateConnected,
 };
+
+
+
+
+
+@interface EOCPerson:NSObject {
+@public
+	NSString *_firstName;
+	NSString *_lastName;
+@private
+	NSString *someInternalData;
+}
+@end
+
+@interface EOCPerson:NSObject
+@property NSString *firstName;
+@property NSString *lastName;
+@end
+
+@interface EOCPerson:NSObject
+- (NSString *)firstName;
+- (void)setFirstName:(NSString *)firstName;
+- (NSString *)lastName;
+- (void)setLastName:(NSString *)lastName;
+@end
+
+EOCPerson *aPerson = [Person new];
+aPerson.firstName = @"Bob";//Same as:
+[aPerson setFirstName:@"Bob"];
+NSString *lastName = aPerson.lastName;//Same as:
+NSString *lastName = [aPerson lastName];
+
+@implementation EOCPerson
+@synthesize firstName = _myFirstName;
+@synthesize lastName = _myLastName;
+@end
+
+@interface EOCPerson : NSManagedObject
+@property NSString *firstName;
+@property NSString *lastName;
+@end
+
+@implementation EOCPersom
+@dynamic firstName, lastName;
+@end
+
+@property (nonatomic, readwrite, copy) NSString *firstName;
+
+@property (nonatomic, getter-isOn) BOOL on;
+
+@interface EOCPerson : NSManagedObject
+@property (copy) NSString *firstName;
+@property (copy) NSString *lastName;
+- (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName;
+@end
+
+- (id)initWithFirstName:(NSString *)firstName lastName:(NSString *)lastName
+{
+	if((self = [super init])) {
+		_firstName = [firstName copy];
+		_lastName = [lastName copy];
+	} 
+	return self;
+}
+
+@property (copy, readonly) NSString *firstName;
+@property (copy, readonly) NSString *lastName;
+
+
+
+
+
+@interface EOCPerson : NSObject
+@property (nonatomic, copy) NSString *firstName;
+@property (nonatomic, copy) NSString *lastName;
+// Convenience for firstName + "" + lastName:
+- (NSString *)fullName;
+- (void)setFullName:(NSString *)fullName;
+@end
+
+- (NSString *)fullName {
+	return [NSString stringWithFormat:@"%@ %@",self.firstName,self.lastName];
+}
+/** The following assumes all full names have exactly 2
+* parts. The method could be rewritten to support more
+* exotic names
+*/
+- (void)setFullName:(NSString *)fullName {
+	NSArray *components = [fullName componentsSeparatedByString:@" "];
+	self.firstName = [components objectAtIndex:0];
+	self.lastName = [components objectAtIndex:1];
+}
+
+- (NSString *)fullName {
+	return [NSString stringWithFormat:@"%@ %@",_firstName,_lastName];
+}
+/** The following assumes all full names have exactly 2
+* parts. The method could be rewritten to support more
+* exotic names
+*/
+- (void)setFullName:(NSString *)fullName {
+	NSArray *components = [fullName componentsSeparatedByString:@" "];
+	_firstName = [components objectAtIndex:0];
+	_lastName = [components objectAtIndex:1];
+}
+
+- (void)setLastName:(NSString *)lastName {
+	if(![lastName isEqualToString:@"Smith"]) {
+		[NSException raise:NSInvalidArgumentException format:@"Last name must be Smith"];
+	}
+	self.lastName = lastName;
+}
+
+- (EOCBrain *)brain {
+	if(!_brain) {
+		_brain = [Brain new];
+	}
+	return _brain;
+}
+
+
+
+
+
+NSString *foo = @"Badger 123";
+NSString *bar = [NSString stringWithFormat:@"Badger %i", 123];
+BOOL equalA = (foo == bar);//< equalA = NO;
+BOOL equalB = [foo isEqual:bar];//< equalB = YES
+BOOL equalC = [foo isEqualToString:bar];//< equalC = YES
+
+- (BOOL)isEqual:(id)object;
+- (NSUInteger)hash;

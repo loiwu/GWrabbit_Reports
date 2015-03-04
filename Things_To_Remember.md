@@ -37,3 +37,28 @@ Things to Remember:
 	Doing so means that the type is guaranteed to be the one chosen rather than a type chosen by the compiler.
 	(4) Do not implement a default case in switch statements that handle enumerated types.
 	This helps if you add to the enumeration, because the compiler will warn that the switch does not handle all the values.
+
+
+
+
+
+C2 - Objects, Messaging, and the Runtime
+Item 6: Understand Properties
+Things to Remember:
+	(1) The @property syntax provides a way of defining what data an object encapsulates.
+	(2) Use attributes to provide the right semantixs for the data being stored.
+	(3) Ensure that anywhere a property's backing instance variable is set, the declared semantics are adhered to.
+	(4) Use nonatomic on iOS, since performance is severely impacted if atomic is used.
+Item 7: Access Instance Variables Primarily Directly When Accessing Them Internally
+Things to Remember:
+	(1) Prefer to read data directly through instance variables internally and to write data through properties internally.
+	(2) Within initializers and dealloc, always read and write data directly through instance variables.
+	(3) Sometimes, you will need to read data through properties when that data is being lazily initialized.
+Item 8: Understand Object Equality
+Things to Remember:
+	(1) Provide isEqual: and hash methods for objects that you will want to check for equality.
+	(2) Objects that are equal must have the same hash, but objects that have the same hash do not necessarily to be equal.
+	(3) Determine what is necessary to test for equality rather than bluntly testing every property.
+	(4) Write hash methods that will be quick but provide a reasonably low level of collisions.
+	
+
