@@ -90,3 +90,48 @@ mutableDictionary[@"lastName"] = @"Galloway";
 
 // Limitations
 NSMutableArray *mutable = [@[@1,@2,@3,@4,@5] mutableCopy];
+
+
+
+
+
+#define ANIMATION_DURATION 0.3
+static const NSTimeInterval kAnimationDuration = 0.3;
+
+// In the header file
+extern NSString *const EOCStringConstant;
+// In the implementation file
+NSString *const EOCStringConstant = @"VALUE";
+
+// EOCAnimatedView.h
+extern const NSTimeInterval EOCAnimatedViewAnimationDuration;
+// EOCAnimatedView.m
+const NSTimeInterval EOCAnimatedViewAnimationDUration = 0.3;
+
+
+
+
+
+enum EOCConnectionState {
+	EOCConnectionStateDisconnected,
+	EOCConnectionStateConnecting,
+	EOCConnectionStateConnected,
+};
+
+enum EOCConnectionState state = EOCConnectionStateDisconnected;
+
+enum EOCConnectionState {
+	EOCConnectionStateDisconnected,
+	EOCConnectionStateConnecting,
+	EOCConnectionStateConnected,
+};
+typedef enum EOCConnectionState EOCConnectionState;
+EOCConnectionState state = EOCConnectionStateDiconnected;
+
+enum EOCConnectionStateConnectionState:NSInteger{/* ... */};
+enum EOCConnectionStateConnectionState:NSInteger;
+enum EOCConnectionStateConnectionState {
+	EOCConnectionStateDisconnected = 1,
+	EOCConnectionStateConnecting,
+	EOCConnectionStateConnected,
+};
