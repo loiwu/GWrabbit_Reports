@@ -306,3 +306,21 @@ Fonts
 Attributed Strings
 NSAttributedString
 UILabel
+
+
+Lecture 05:
+
+UITextView
+View Controller Lifecycle
+NSNotification
+
+
+Lecture 06:
+
+Multiple MVCs
+UINavigationController
+MVCs working together
+Segues
+View Controller
+Unwinding
+UITabBarController
