@@ -232,4 +232,61 @@ is not just a random @property,
 it’s an outlet (i.e. a connection to the View).
 The compiler ignores it.
  Otherwise this syntax should all be familiar to you.
- ￼
+
+
+
+Lecture 03:
+
+You should always comment which initializer is your designated initializer
+if it is different from your superclass’s.
+
+Often a subclass’s implementation of a method will call its superclass’s 
+implementation by invoking super
+
+firstObject is an NSArray method. It is just like [array objectAtIndex:0]
+except that it will not crash if the array is empty
+(it will just return nil). Convenient.
+
+Outlet Collection arrays are always strong
+so Xcode has removed that option from the dialog.
+While the View will point strongly to all of the buttons 
+inside the array, it will not point to the array itself at all, 
+(only our Controller will) so our outlet needs to be strongly 
+held in the heap by our Controller.
+
+This IBOutletConnection(UIButton) is again just something Xcode puts in there
+to remember that this is an outlet not just a random NSArray.
+The compiler ignores this.
+
+Review (MVC)
+1 - Model is UI-independent
+Cards and Decks, not UIButtons and UILabels
+2 - View is (so far) completely generic UI elements
+UIButton
+UILabel
+3 - Controller interprets Model for View (and vice-versa) 
+Example: converting isChosen to selected state of a button
+Example: converting isMatched to enabled state of a button
+Example: taking a button touch and turning it into a chooseCardAtIndex: 
+in the Model Target/Action and Outlets (so far)
+
+Review (Xcode)
+1 - Create a Project and maneuver through Xcode’s UI
+Hide/Show Navigator, Utilities, Assistant Editor, etc., etc. 
+Also how to run in the Simulator.
+2 - Edit
+Not just code, but also your storyboard, 
+use Attributes Inspector to edit buttons, labels, et. al.
+Ctrl-drag to make connections (actions and outlets).
+Right click on buttons, etc., 
+to find out about and disconnect connections.
+Look at warnings and errors (and get rid of them hopefully!). 
+3 - Add classes to your project
+e.g. you added the Card, etc., Model classes in your Homework assignment.
+3 - Use the documentation
+Many ways to get to documentation, 
+but ALT-clicking on a keyword is one of the coolest. 
+Once there, search and click on links to find what you want.
+Crucial to being a good iOS programming to become familiar with all the documentation.
+
+Review (Basic Objective-C)
