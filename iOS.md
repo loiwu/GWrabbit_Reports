@@ -290,3 +290,19 @@ Once there, search and click on links to find what you want.
 Crucial to being a good iOS programming to become familiar with all the documentation.
 
 Review (Basic Objective-C)
+
+Lecture 04:
+
+Creating Objects
+nil
+Dynamic Binding
+Object Typing
+Introspection
+Foundation Framework
+Enumeration
+Property List
+Colors
+Fonts
+Attributed Strings
+NSAttributedString
+UILabel
