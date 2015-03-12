@@ -102,6 +102,10 @@ send a message to an object.
 In this case, the message isEqualToString: 
 is being sent to the NSString returned by the contents getter.
 
+The object the message is being sent to (receiver).
+Name of the message being sent.
+Argument being passed along with the message.
+
 We could make match: even more powerful by allowing it to match against 
 multiple cards by passing an array of cards using the NSArray class in Foundation.
 
@@ -114,6 +118,118 @@ Note the for-in looping syntax here.
 This is called “fast enumeration.”
 It works on arrays, dictionaries, etc.
 
-￼￼
-￼￼
-￼￼
+
+
+Lecture 02:
+
+this method has 2 arguments (and returns nothing).
+It’s called "addCard:atTop".
+this one takes no arguments and returns a Card
+(i.e. a pointer to an instance of a Card in the heap).
+We must #import the header file for￼any class we use in this file(e.g.Card).
+
+Arguments to methods (like the atTop: argument) are never “optional.”
+However, if we want an addCard: method without atTop:, we can define it separately.
+And then simply implement it in terms of the the other method.
+
+Declaring a @property makes space in the instance for the￼pointer itself,
+but not does not allocate space in the heap for the object the pointer points to. 
+The place to put this needed heap allocation is in the￼getter for the cards @property.
+
+All properties start out with a value of 0 (called nil for pointers to objects).
+So all we need to do is allocate and initialize the object if the pointer to it is nil.
+This is called “lazy instantiation”.
+
+arc4random() returns a random integer.
+
+Calling objectAtIndexedSubscript: with an argument of zero on an empty array will crash.
+(array index out of bounds)!
+So let’s protect against that case.
+
+NSUInteger is a typedef for an unsigned integer.
+
+We could just use the C type unsigned int here. It’s mostly a style choice.
+Many people like to use NSUInteger and NSInteger in public API and unsigned int and int inside implementation.
+But be careful, int is 32 bits, NSInteger might be 64 bits.
+If you have an NSInteger that is really big (i.e. > 32 bits worth)
+it could get truncated if you assign it to an int.
+Probably safer to use one or the other everywhere.
+
+Even though we are overriding the implementation of the contents method, 
+we are not re-declaring the contents property in our header file. 
+We’ll just inherit that declaration from our superclass.
+
+But there’s a problem here now.
+A compiler warning will be generated if we do this.
+Why?
+Because if you implement BOTH the
+setter and the getter for a property, 
+then you have to create the instance variable for the property yourself.
+
+All of the methods we’ve seen so far are “instance methods”.
+They are methods sent to instances of a class.
+But it is also possible to create methods
+that are sent to the class itself. 
+Usually these are either creation methods
+(like alloc or stringWithFormat:
+or utility methods.
+
+Class methods start with + Instance methods start with -.
+Since a class method is not sent to an instance, we cannot reference our properties in here 
+(since properties represent per-instance storage).
+
+Initialization in Objective-C happens immediately after allocation.
+We always nest a call to init around a call to alloc.
+Only call an init method immediately after calling alloc 
+to make space in the heap for that new object.
+And never call alloc without immediately calling some
+init method on the newly allocated object
+
+Notice this weird "return type" of instancetype. 
+It basically tells the compiler that this method 
+returns an object which will be the same type as the object that this
+message was sent to.
+We will pretty much only use it for init methods. Don’t worry about it too much for now.
+But always use this return type for your init methods.
+
+This sequence of code might also seem weird. 
+Especially an assignment to self!
+This is the ONLY time you would ever assign something to self
+The idea here is to return nil if you cannot initialize this object.
+But we have to check to see if our superclass can initialize itself.
+The assignment to self is a bit of protection against our trying to
+continue to initialize ourselves if our superclass couldn't initialize.
+Just always do this and don't worry about it too much.
+
+Sending a message to super is how we send a message to ourselves, 
+but use our superclass’s implementation instead of our own.
+Standard object-oriented stuff.
+
+Action methods are allowed to have either no arguments,
+one argument (the object sending the message),
+or even two arguments
+(the sender and the touch event provoking the action).
+In this case, though, what we want is just the sending button 
+so that we can change it when it is touched.
+
+This method’s return type is actually void, 
+but Xcode uses the typedef IBAction instead 
+just so that Xcode can keep track that this is not just a
+random method that returns void, but rather, it’s an action method.
+Apart from that, IBAction is exactly the same thing as void.
+
+The @property created by this process is weak because the
+MVC’s View already keeps a strong pointer to the UILabel,
+so there’s no need for the Controller to do so as well.
+And if the UILabel ever left the View, 
+the Controller most likely wouldn’t want a pointer to it anyway
+(but if you did want to keep a pointer to it even if it left the View,
+ you could change this to strong (very rare)).
+ 
+ IBOutlet is a keyword Xcode puts here
+ (similar to IBAction) to remind Xcode that this
+is not just a random @property, 
+it’s an outlet (i.e. a connection to the View).
+The compiler ignores it.
+ Otherwise this syntax should all be familiar to you.
+ ￼
