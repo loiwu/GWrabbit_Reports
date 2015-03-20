@@ -324,3 +324,12 @@ Segues
 View Controller
 Unwinding
 UITabBarController
+
+Lecture 14:
+UIApplication -what's that?
+应用中存在一个共享的UIApplication对象的实例
+Application Delegate负责处理所有来自iOS的消息，该实例与Application Delegate不同
+该实例可以提供全局的信息
+UIApplication *myApplication = [UIApplication sharedApplication];
+The UIApplicationDelegate protocol 定义一些列被UIApplication对象的单例所调用的方法，以响应软件运行周期内的一系列重要事件。 
+
