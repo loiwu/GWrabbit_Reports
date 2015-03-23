@@ -78,3 +78,7 @@ Item 26: Avoid Properties in Categories
 属性以一种封装数据的方式，尽管技术上可以实现在分类中属性的声明，但要尽可能避免这么做。
 因为，对于一个分类来说，不可能将实例变量加入到类中。因此，对于一个分类来说，也就不可能讲一个实例面量合成（synthesize）回属性。
 相关Items: Item 10，Item 12
+	
+Item 26 Things to Remeber:
+Keep all property declarations for encapsulated data in the main interface definition.
+Prefer accessor methods to property declarations in categories, unless it is class-continuation category.
