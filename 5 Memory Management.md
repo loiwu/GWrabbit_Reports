@@ -47,3 +47,11 @@ Item 34 Things to Remember:
 2 - 更正程序的autorelease pool可以帮助降低程序的高内存水位线（hig-memory waterline）
 3 - 现代的autorelease pool采用新的@autoreleasepool语法
 
+Item 35: Use Zombies to Help Debug Mmory-Management Problems
+使用僵尸变量帮助调试内存问题
+
+Item 35 Things to Remember:
+1 - 当一个对象被释放时，它能够可选的变成就爱那个是变量，而不是被真正释放。
+这种特性可以通过开启environment flag - NSZombieEnabled来实现
+2 - 将对象变成僵尸变量，是通过操作它的isa指针，将对象的类变成特表的僵尸变量类。
+一个僵尸类，响应所有的选择器（selector）时，将相关信息打印到控制台，以表明什么信息被发送给什么对象，然后将程序异常终止（aborting）。
