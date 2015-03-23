@@ -39,3 +39,11 @@ Item 33 Things to Remember:
 自动nil（Autonilling）是和ARC一起引入的一种新特性，它在运行时（runtime）被执行。
 Autonilling weak引用可以被安全的read，因为它不会包含一个已被释放了的对象的引用。
 
+Item 34: Use Autorelease Pool Blocks to Reduce High-Memory Waterline
+使用Autorelease Pool块以降低高内存水位线
+
+Item 34 Things to Remember:
+1 - Autorelease pool被放置在栈（stack）中，当对象被发送autorelease消息，它会被压入栈顶
+2 - 更正程序的autorelease pool可以帮助降低程序的高内存水位线（hig-memory waterline）
+3 - 现代的autorelease pool采用新的@autoreleasepool语法
+
