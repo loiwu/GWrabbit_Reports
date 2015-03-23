@@ -29,3 +29,13 @@ Item 31 Things to Remember:
 there should be a method for releasing these resources.
 It should be the contract with the consumer of such a class to call this close method when finished using the resources.
 3 - 要避免在dealloc中进行方法调用，因为某些方法会进行异步（asynchronous）操作，或是在假设对象处于正常状态的情况下结束。
+
+Item 33: Use Weak References to Avoid Retain Cycles
+使用weak引用以避免retain cycle
+
+Item 33 Things to Remember:
+1 - 可以通过将特定的引用设定为weak来避免retain cycle
+2 - 弱引用（weak reference）可以自动nil化也可以不自动nil。
+自动nil（Autonilling）是和ARC一起引入的一种新特性，它在运行时（runtime）被执行。
+Autonilling weak引用可以被安全的read，因为它不会包含一个已被释放了的对象的引用。
+
