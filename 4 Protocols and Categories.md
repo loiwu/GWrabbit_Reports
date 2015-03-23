@@ -1,4 +1,4 @@
-4 Protocals and Categories
+4 Protocols and Categories
 协议、分类
 Objective-C没有多继承，而协议（Protocol）就提供了一种方式，为类定义一个实施（implement）的方法集合
 分类（Category）提供了一种机制，不需要子类化某个类，就能为其增加新的方法（method）
