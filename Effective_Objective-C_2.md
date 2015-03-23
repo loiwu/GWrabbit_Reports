@@ -72,3 +72,9 @@ Item 25: Always Prefix Category Names on Third-Party Classes
 Item 25 Things to Remember:
 Always prepend your naming prefix to the names of categories you add to classes that are not your own.
 Always prepend your naming prefix to the method names within categories you add to classes that are not your own.
+
+
+Item 26: Avoid Properties in Categories
+属性以一种封装数据的方式，尽管技术上可以实现在分类中属性的声明，但要尽可能避免这么做。
+因为，对于一个分类来说，不可能将实例变量加入到类中。因此，对于一个分类来说，也就不可能讲一个实例面量合成（synthesize）回属性。
+相关Items: Item 10，Item 12
