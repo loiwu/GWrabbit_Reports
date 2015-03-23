@@ -62,3 +62,9 @@ HTTP的变体方法（mutation methods）通过一个叫做NSHMutableTTPURLReque
 Item 24 Things to Remember:
 Use categories to split a class implementation into more manageable fragments.
 Create a category called Private to hide implementation detail of methods that should be considered as pricate.
+
+Item 25: Always Prefix Category Names on Third-Party Classes
+为第三方库类的分类添加前缀
+
+分类中的方法被加入类中，就如同该方法是这个类的一部分。在运行时（runtime），分类被加载，上述情况发生。
+如果一个分类中方法已经存在，那么分类中的方法实现就会替代原有的实现。这样的重写可能会反复发生。最后加载的分类会最终重写该方法。
