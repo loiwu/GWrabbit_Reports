@@ -68,3 +68,7 @@ Item 25: Always Prefix Category Names on Third-Party Classes
 
 分类中的方法被加入类中，就如同该方法是这个类的一部分。在运行时（runtime），分类被加载，上述情况发生。
 如果一个分类中方法已经存在，那么分类中的方法实现就会替代原有的实现。这样的重写可能会反复发生。最后加载的分类会最终重写该方法。
+
+Item 25 Things to Remember:
+Always prepend your naming prefix to the names of categories you add to classes that are not your own.
+Always prepend your naming prefix to the method names within categories you add to classes that are not your own.
