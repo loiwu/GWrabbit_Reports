@@ -59,3 +59,6 @@ HTTP的变体方法（mutation methods）通过一个叫做NSHMutableTTPURLReque
 在这样的情形下，创建一个Private分类就是一个很好地选择，因为，在类库中，只要是在相关方法需要被使用的地方，该分类的头文件会被import。
 如果分类的头文件不作为发布类库的一部分，类库的consumer就无法知道这些私有方法的存在。
 
+Item 24 Things to Remember:
+Use categories to split a class implementation into more manageable fragments.
+Create a category called Private to hide implementation detail of methods that should be considered as pricate.
