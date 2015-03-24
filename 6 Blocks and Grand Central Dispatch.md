@@ -41,3 +41,39 @@ block的一个强大特性是，在它定义处可以获得范围。
 		return a + b + additional;
 	};
 	int add = addBlock(2,5); //<add = 12
+	
+通过__block限定词（qualifier）将变量声明为可修改（modifiable），该变量可在block中被修改。
+举例: 
+	block可以被用于数组枚举
+	NSArray *array = @[@0,@1,@2,@3,@4,@5];
+	__block NSInteger count = 0;
+	[array enumerateObjectsUsingBlock:
+		^(NSNumber *number,NSUInteger idx,BOOL *stop){
+			if([number compare:@2] == NSOrderedAscending){
+				count++;
+			}
+		}];
+		// count = 2;
+	以上示例也展示了内联block的使用方法。声明一个内联block，意味着，代码的业务逻辑会集中在一处，不会被分散开。
+
+当捕获了一个对象类型（object type）的变量，block会隐式地保留（retain）它。当block自身被释放时候，该变量也会被释放（release）。
+block自身可被认为是一个对象。事实上，block和其他Objective-C对象一样，可以响应各种selector。它和其他对象一样，有引用计数的特性。
+当最后的引用被移除时，block会被销毁。任何block捕获的对象都会被release，以平衡block对其的retain。
+
+如果block被定义在Objective-C类的实例方法中，伴随着类的任何实例变量，self变量都是可用的。
+实例变量一般是可写的，而且不需要显示的用__block限定词进行声明。但是，如果实例变量通过对其读写而被捕获，self变量就会同时被隐式的捕获，因为实例变量与该实例相关。
+举例:
+	存在一个叫EOCClass的类，有方法anInstanceMethod，其中包含block
+	@interface EOCClass
+	- (void)anInstanceMethod {
+		//...
+		void(^someBlock)() = ^{
+			_anInstanceVariable = @"Something";
+			NSLog(@"_anInstanceVariable = %@",_anInstanceVariable);
+		};
+		//...
+	}
+	@end
+	重要点：_anInstanceVariable = @"Something"; 通过这样的方式，self变量被捕获。
+	必须注意，self是一个对象，当self被block捕获时，它会被retain。
+	这种情况可能会到时retain cycle。	
