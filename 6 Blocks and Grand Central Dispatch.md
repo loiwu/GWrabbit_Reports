@@ -183,6 +183,12 @@ UI线程通常是主线程。
 在相关事件发生后，比如一个异步操作的完成，作为代理的对象将接到通知。
 举例: 
 	有一个从URL获取数据的类。使用代理模式（Delegate pattern）编码。
+	
+Item 38 Things to Remember:
+1 - 使用类型定义，使块变量更易使用
+2 - 在定义新类型是，遵循命名规则，以防止与其它类型相冲突
+3 - 不要害怕定义为相同的块签名（block signature）定义多个类型。
+有时候，你可能会在某一处通过更改块签名来使用特定的块。
 
 Item 39 Things to Remember:
 1 - 在创建对象时需要内联声明业务逻辑（business logic）的处理器（handler）时，采用处理器块（handler block）
