@@ -76,4 +76,18 @@ block自身可被认为是一个对象。事实上，block和其他Objective-C�
 	@end
 	重要点：_anInstanceVariable = @"Something"; 通过这样的方式，self变量被捕获。
 	必须注意，self是一个对象，当self被block捕获时，它会被retain。
-	这种情况可能会到时retain cycle。	
+	这种情况可能会到时retain cycle。
+
+Item 39: Use Handler Blocks to Reduce Code Separation
+使用处理器块（Handler Block）减少代码的分离
+
+编程中的通常范例是，用户界面（user interface）异步地（asynchronously）执行任务。
+这样，服务于用户界面显示和触发（touch）的线程，就不会因为长时间运行任务（long-running tasks）的发生而被阻塞（be blocked），比如输入输出（I/O）或网络活动（network activity）。
+UI线程通常是主线程。
+当异步方法（Asynchronous methods）完成时，它需要通过某种方式进行通知。代理协议是一种常用的技术。
+在相关事件发生后，比如一个异步操作的完成，作为代理的对象将接到通知。
+举例: 
+	有一个从URL获取数据的类。使用代理模式（Delegate pattern）编码。
+
+Item 39 Things to Remember:
+1 - 在创建对象时需要内联声明业务逻辑（business logic）的处理器（handler）时，采用处理器块（handler block）
