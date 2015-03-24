@@ -127,11 +127,50 @@ void(^block)() = ^{
 }
 编译时执行。
 
-Item 38 Things to Remember:
+Item 37 Things to Remember:
 1 - 块是C，C++和Objective-C的词法闭包（lexical closures）
 2 - 块可以可选的带有参数和返回值
 3 - 块可以被分配在栈，堆，上，也可以是全局的。
 一个被分配在栈上的块可以被拷贝到堆上，这时，块就如同标准的Objective-C对象一般，具有引用计数性。
+
+
+Item 38: Create typedefs for Common Block Types
+为一般的块类型创建类型定义
+
+块拥有固有类型（inherent type）。块可以被赋给适当类型的变量。
+这种类型又块带有的参数和块返回的类型组成。
+举例:
+	^(BOOL flag,int value){
+		if(flag){
+			return value*5;
+		} else {
+			return value*10;
+		}
+	}
+类型和向变量的赋值:
+	int (^variableName)(BOOL flag,int value) = 
+		^(BOOL flag,int value){
+			//implementation
+			return someInt;
+		}
+块变量（block-variable）定义格式:
+	return_type (^block_name)(parameters)
+	
+使用typedef: 定义一个新类型 EOCSomeBlock
+	typedef int(^EOCSomeBlock)(BOOL flag,int value);
+使用定义的新类型:
+	EOCSomeBlock block = ^(BOOL flag,int value){
+		// Implementation
+	}	
+
+上述方法使得使用block的API更易使用。
+任何使用块作为方法参数的类，举个例子，异步操作的完成处理器（completion handler），都可以使用为块创造类型定义的方法，使得它更易理解。
+举例:
+	- (void)startWithCompletionHandler:(void(^)(NSData *data,NSError *error))completion;
+	为块创建类型定义，使得上述代码更易理解
+	typedef void(^EOCCompletionHandler)(NSData *data,NSError *error);
+	- (void)startWithCompletionHandler:(EOCCompletionHandler)completion;
+	
 
 
 Item 39: Use Handler Blocks to Reduce Code Separation
