@@ -77,6 +77,62 @@ block自身可被认为是一个对象。事实上，block和其他Objective-C�
 	重要点：_anInstanceVariable = @"Something"; 通过这样的方式，self变量被捕获。
 	必须注意，self是一个对象，当self被block捕获时，它会被retain。
 	这种情况可能会到时retain cycle。
+	
+The Guts of a Block
+详解Block
+
+Block本身也是一个对象，在在block定义所存在的内存范围内的第一个变量也是一个指向类对象的指针，叫做isa。
+block占用的其余内存，包含了很多位的信息，以便使block正确运作。
+
+Global，Stack，and Heap Blocks
+全局，栈，堆块
+
+块一旦被定义，相关内存就会被分配到栈上。这就意味着，块只在它被定义的范围内是有效的。
+举例:
+	void(^block)();
+	if(/*some condition*/){
+		block = ^{
+			NSLog(@"Block A");
+		};
+	} else {
+		block = ^{
+			NSLog(@"Block B");
+		};
+	}
+	block();
+	在if和else语句中定义的两个block，被分配到栈内存。
+	当编译器为两个block分配栈内存时，窄内存分配范围的结尾处，编译器可以重写这内存。
+	所以，每个block只能在它们各自的if语句中保证合法性。
+	代码可能会被成功编译，但在运行时可能会出错。
+	通过向block发送copy消息，来解决上述问题。
+	这样，block会从栈（stack）拷贝到堆（heap），block就能在它定义以外的范围被使用。
+	而且，一旦被拷贝到堆，block就成为了可引用计数的对象。任何接下来的copy都不是内容拷贝而是增加block的引用计数。
+	一个栈块不需要被显式的释放，因为栈内存会自动回收。
+举例: 安全的写法
+	void(^block)();
+	if(/*some condition*/){
+		block = [^{
+			NSLog(@"Block A");
+		} copy];
+	} else {
+		block = [^{
+			NSLog(@"Block B");
+		} copy];
+	}
+	block();
+	
+Global Block 全局块
+void(^block)() = ^{
+	NSLog(@"This is a block");
+}
+编译时执行。
+
+Item 38 Things to Remember:
+1 - 块是C，C++和Objective-C的词法闭包（lexical closures）
+2 - 块可以可选的带有参数和返回值
+3 - 块可以被分配在栈，堆，上，也可以是全局的。
+一个被分配在栈上的块可以被拷贝到堆上，这时，块就如同标准的Objective-C对象一般，具有引用计数性。
+
 
 Item 39: Use Handler Blocks to Reduce Code Separation
 使用处理器块（Handler Block）减少代码的分离
