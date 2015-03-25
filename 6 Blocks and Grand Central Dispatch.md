@@ -323,3 +323,19 @@ GCD队列将setter和getter方法在一个连续队列上运行。GCD在底层�
 		});
 	}
 	相比串行队列，以上采用并发队列加barrier block的方法更快速。
+	
+Item 43: Know When to Use GCD and When to Use Operation
+
+NSNotificationCenter就是一个使用operation queue而不是使用dispatch queue的API。
+通过block而不是调用selector，注册以便观察一个特定通知。
+举例: NSNotificationCenter方法原型
+	- (id)addObserverForName:(NSString *)name
+					object:(id)object
+					queue:(NSOperationQueue *)queue
+					usingBlock:(void(^)(NSNotification *))block
+
+Item 43 Things to Remember:
+1 - 调度队列（Dispatch Queue）并非多线程和任务管理的唯一解决方案
+2 - 操作队列（Operation Queue）提供了一个更高层的Objective-C的API，它能完成简单GCD所能完成的工作。
+而且它能够完成更多复杂的工作，如果使用GCD，则需要在GCD基础上增加更多地代码
+
