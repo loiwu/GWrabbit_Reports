@@ -231,4 +231,95 @@ Item 41 Prefer Dispatch Queues to Locks for Synchronization
 递归锁(recursivelock)：
 
 严格上讲递归锁只是互斥锁的一个特例，同样只能有一个线程访问该对象，但允许同一个线程在未释放其拥有的锁时反复对该锁进行加锁操作； windows下的临界区默认是支持递归锁的，而linux下的互斥量则需要设置参数PTHREAD_MUTEX_RECURSIVE_NP，默认则是不支持
+
+使用GCD，可以提供一种更简单更高效的加锁方式
+举例: property属性设置为atomic，手动写acceeors
+	get方法:
+	- (NSString *)someString {
+		@synchronized(self) {
+			return _someString;
+		}
+	}
+	set方法:
+	- (void)setSomeString {
+		@sychronized(self) {
+			_someString = someString;
+		}
+	}
 	
+在相同的线程上分发（Dispatch）读写，可以保证同步
+
+使用dispatch_queue_create创建Serial Dispatch Queue，该queue虽然每次只执行一个任务，
+但是通过dispatch_queue_create 可以创建多个Serial Dispatch Queue，将处理追加到多个queue中，
+每次就同时执行多个任务，系统对于一个Serial Dispatch Queue就生成一个线程，如果这样的线程过多，对资源耗费是相当大的，反而降低了系统的性能，因此需要注意创建的数量。
+举例:
+	_syncQueue = dispatch_queue_create("com.effectiveobjectivec.syncQueue",NULL);
+	
+	// get方法
+	- (NSString *)someString {
+		__block NSString *localSomeString;
+		dispatch_sync(_syncQueue,^{
+			localSomeString = _someString;
+		});
+		return localSomeString;
+	}
+	// set方法
+	- (void)setSomeString:(NSString *)someString {
+		dipatch_sync(_syncQueue,^{
+			_someString = someString;
+		});
+	}
+GCD队列将setter和getter方法在一个连续队列上运行。GCD在底层做了很多优化来处理加锁操作。
+
+进一步举例: 这里setter方法其实没必要同步，用来设置实例变量的block代码不需要向setter返回任何值。
+	- (void)setSomeString:(NSString *)someString {
+		dispatch_async(__syncQueue, ^{
+			_someString = someString;
+		});
+	}
+	将同步分发（synchronous dispatch）修改成异步分发（asynchronous dispatch）后，
+	读写操作的执行任然是彼此连续的，但从调用者的角度来说，代码被优化的更快了。
+	其实，通过异步分发，block被拷贝了，如果拷贝小号的时间远大于block被执行的时间，那么执行速度就变慢了。
+	所以在这个简单的例子中，执行速度是降低的。但对于大负荷的任务，这种方法是一种好的选择。
+	
+另一种优化速度的方法是，让getter方法都彼此并发执行，但getter和setter方法不并发。
+举例:在连续队列中，看看使用并发队列会产生的效果
+	_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	- (NSString *)someString {
+		__block NSString *localSomeString;
+		dispatch_sync(_syncQueue,^{
+			localSomeString = _someString;
+		});
+		return localSomeString;
+	}
+	- (void)setSomeString:(NSString *)someString {
+		dispatch_async(_syncQueue,^{
+			_someString = someString;
+		});
+	}
+	
+	Global queues: 全局队列是并发队列，并由整个进程共享。进程中存在三个全局队列：高、中（默认）、低三个优先级队列。可以调用dispatch_get_global_queue函数传入优先级来访问队列。
+	以上代码中，读写操作都发生在全局队列这个并发队列上，采用GCD的阻碍（barrier），来解决并发读写的问题。
+	void dispatch_barrier_async(dispatch_queue_t queue, dispatch_block_t block);
+	void dispatch_barrier_sync(dispatch_queue_t queue, dispatch_block_t block);
+	
+	在队列中，依据所有其它的块，barrier独立执行。barrier只与并行队列有关。
+	当队列正在执行，即将执行的时一个阻碍块（barrier block）。队列会先等待所有单线块执行完，然后执行阻碍块，然后继续执行其它块。
+	
+	并发队列上读操作使用普通的block，写操作使用barrier block。
+	读操作并发执行，写操作独立执行。
+示例代码:
+	_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	- (NSString *)someString {
+		__block NSString *localSomeString;
+		dispatch_sync(_syncQueue,^{
+			localSoneString = _someString;
+		});
+		return localSomeString;
+	}
+	- (void)setSomeString:(NSString *)someString {
+		dispatch_barrier_async(_syncQueue,^{
+			_someString = someString;
+		});
+	}
+	相比串行队列，以上采用并发队列加barrier block的方法更快速。
