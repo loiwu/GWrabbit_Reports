@@ -339,3 +339,59 @@ Item 43 Things to Remember:
 2 - 操作队列（Operation Queue）提供了一个更高层的Objective-C的API，它能完成简单GCD所能完成的工作。
 而且它能够完成更多复杂的工作，如果使用GCD，则需要在GCD基础上增加更多地代码
 
+Item 44: Use Dispatch Groups to Take Advantage of Platform Scaling
+
+Dispatch Group是GCD提供的一种特性，可以轻松分组任务。
+紧接着，等待任务及完成或通过回调得到任务完成的通知。
+当你并行执行多任务，但需要知道它们何时全部完成，上述技术就很有用。
+举例: 执行一个任务，比如压缩一些文件
+	dispatch_group_t dispatch_group_create();
+
+分组是一种简单地数据结构，它喝调度队列不同，他没有identifier。
+进入调度组的相关任务，有两种方式。
+举例: 方式一
+	void dispatch_group_async(dispatch_group_t group,
+					dispatch_queue_t queue,
+					dispatch_block_t block);
+	以上是通常的dispatch_async函数的变体（variant），带有group参数喝相关需要执行的block
+举例: 方式二
+	void dispatch_group_enter(dispatch_group_t group);
+	void dispatch_group_leave(dispatch_group_t group);
+	前者，使分组认为当前运行的任务数增加；后者，使分组认为当前运行的任务数减少。
+	所以，两者要配对使用，这个引用计数的使用有相似之处。
+	在引用计数中，release和retain要平衡使用以防止memory leak
+	在调度分组的使用中，如果enter和leave不配对使用，就会导致分组永远不会结束。
+
+举例: 使用下列函数，等待调度分组结束
+	long dispatch_group_wait(dispatch_group_t group,
+					dispatch_time_t timeout);
+
+在超时前完成，函数返回0；否则返回非零值。
+constant DIDPATCH_TIME_FOREVER可以用来设定timeout的值，表明永远不会超时。
+
+举例: 阻塞当前线程，并等待调度分组执行完
+	void dispatch_group_notify(dispatch_group_t group,
+						dispatch_queue_t queue,
+						dispatch_block_t block);
+和wait函数不同，notify函数允许你指定block，当group完成时，该block可在特定的队列上实行。
+这么做的好处是，如果当前线程不能被阻塞，但你仍然需要知道什么时候所有任务已经执行完毕。
+比如在主前程上做UI绘制和事件处理是不可被阻塞的。
+
+举例: 使用GCD特性在一个在对象数组上的任务，然后等待所有任务完成。
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+	dispatch_group_t dispatchGroup = dispatch_group_create();
+	for(id object in collection) {
+		dispatch_group_async(dispatchGroup,
+						queue,
+						^{[object performTask];});
+	}
+	dispatch_group_wait(dispatchGroup,DISPATCH_TIME_FOREVER);
+	// Continue progressing after completing tasks
+	
+	如果当前线程不能被阻塞，可以使用notify函数代替wait函数
+	dispatch_queue_t notifyQueue = dispatch_get_main_queue();
+	dispatch_group_nitify(dispatchGroup,
+					notifyQueue,
+					^{
+					// Continue progressing after completing tasks
+					});
