@@ -395,3 +395,43 @@ constant DIDPATCH_TIME_FOREVER可以用来设定timeout的值，表明永远不�
 					^{
 					// Continue progressing after completing tasks
 					});
+					
+Item 45: Use dispatch_once for Thread-Safe Single Time Code Execution
+使用dispatch_once为一次性代码执行保障线程安全
+
+单例设计模式（Single Design Pattern），通过调用如sharedInstance这样的方法，返回一个类的单例，而不是每次都创建一个新的实例。
+
+举例: EOCClass的共享实例（shared-instance方法）实现
+	@implementation EOCClass
+	+(id)sharedInstance {
+		static EOCClass *sharedInstance = nil;
+		@synchronized(self) {
+			if(!sharedInstance) {
+				sharedInstance = [[self alloc] init];
+			}
+		}
+		return sharedInstance;
+	}
+	@end
+	
+举例:GCD提供一种特性，使得单例实现更加容易
+	void dispatch_once(dispatch_once_t *token,
+					dispatch_block_t block);
+	该函数踢动一种特别的类型 dispatch_once_t, 在此称之为令牌（token）和块（block）。
+	函数确保对于给定的token，block执行一次，且只执行一次。
+	值得注意，对于每个只需被执行一次的block，被传入的token总是一样的。
+	这通常意味着，将token变量声明为静态（static）或全局（global）
+	
+	+(id)sharedInstance {
+		static EOCClass *sharedInstance = nil;
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			sharedInstance = [[self alloc] init];
+		});
+		return sharedInstance;
+	}
+
+Item 45 Things to Remember:
+1 - 设计线程安全单次执行的代码是常见工作。
+GCD提供了易用的工作dispatch_once来实现这项工作。
+2 - token应该被声明称static或global，对于每个只被执行一次的block，应传入完全相同的token。
